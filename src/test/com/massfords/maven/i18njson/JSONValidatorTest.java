@@ -7,26 +7,26 @@ import java.io.InputStream;
 /**
  * @author slazarus
  */
-public class JSONValidatorTest {
+public class JsonValidatorTest {
 
     @Test
     public void testValidFile() throws Exception {
         InputStream is = getClass().getResourceAsStream("testdata/valid.json");
-        JSONValidator validator = new JSONValidator(is);
+        JsonValidator validator = new JsonValidator(is);
         validator.validate();
     }
 
     @Test(expected=I18NJsonValidationException.class)
     public void testDuplicateKeys() throws Exception {
         InputStream is = getClass().getResourceAsStream("testdata/invalid-duplicate-keys.json");
-        JSONValidator validator = new JSONValidator(is);
+        JsonValidator validator = new JsonValidator(is);
         validator.validate();
     }
 
     @Test(expected=I18NJsonValidationException.class)
     public void testNestedData() throws Exception {
         InputStream is = getClass().getResourceAsStream("testdata/invalid-nested-data.json");
-        JSONValidator validator = new JSONValidator(is);
+        JsonValidator validator = new JsonValidator(is);
         validator.validate();
     }
 

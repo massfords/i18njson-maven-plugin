@@ -13,17 +13,17 @@ import java.util.List;
 /**
  * @author slazarus
  */
-public class JSONValidator {
+public class JsonValidator {
 
     private JsonParser parser = null;
 
     private List<String> keys = new ArrayList<String>();
 
-    public JSONValidator(File file) throws FileNotFoundException {
+    public JsonValidator(File file) throws FileNotFoundException {
         this(new FileInputStream(file));
     }
 
-    public JSONValidator(InputStream in) {
+    public JsonValidator(InputStream in) {
         parser = Json.createParser(in);
     }
 
