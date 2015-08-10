@@ -1,0 +1,6 @@
+{
+  "a": "this",
+  "b": {
+    "c": "should also fail"
+  }
+}
