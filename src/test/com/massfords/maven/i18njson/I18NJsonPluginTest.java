@@ -2,6 +2,7 @@ package com.massfords.maven.i18njson;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class I18NJsonPluginTest {
 
     @Test
     public void testValidateFiles() throws Exception {
-        String validJsonPath = getClass().getResource("testdata/valid.json").getFile();
-        List<String> paths = new ArrayList<String>();
-        paths.add(validJsonPath);
-        plugin.validateFiles(paths);
+        File validJsonFile = new File(getClass().getResource("testdata/valid.json").getFile());
+        List<File> files = new ArrayList<File>();
+        files.add(validJsonFile);
+        plugin.validateFiles(files);
     }
 
 }
