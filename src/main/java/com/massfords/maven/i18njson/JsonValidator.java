@@ -22,6 +22,7 @@ public class JsonValidator {
         try (JsonParser parser = Json.createParser(inputStream)) {
 
             Set<String> keys = new HashSet<>();
+            Set<String> duplicates = new HashSet<>();
 
             if (!parser.hasNext()) {
                 // this is fatal, no point continuing looking
@@ -45,8 +46,7 @@ public class JsonValidator {
                 }
                 final String key = parser.getString();
                 if (!keys.add(key)) {
-                    // todo this is NOT fatal. Record the dupe key and throw as one exception.
-                    throw new I18NJsonValidationException("Duplicate key \"" + key + "\" found.");
+                    duplicates.add(key);
                 }
                 event = parser.next();
                 if (event != JsonParser.Event.VALUE_STRING) {
@@ -57,6 +57,9 @@ public class JsonValidator {
             if (!foundEndObject) {
                 // this is fatal, no point continuing looking
                 throw new I18NJsonValidationException("Failed to find end object token!");
+            }
+            if (duplicates.size() > 0) {
+                throw new I18NJsonValidationException("Found duplicate keys: " + duplicates);
             }
         }
     }
