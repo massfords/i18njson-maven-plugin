@@ -11,7 +11,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * todo - add a snippet in javadoc or comment below with an example in the expected format
+ * Valid files should contain no nested values (lists / objects within a key value pair of the root object),
+ * or duplicate keys.
+ *
+ * Example:
+ *
+ * {
+ *   "a": "hello",
+ *   "b": "world"
+ * }
  *
  * @author slazarus
  */

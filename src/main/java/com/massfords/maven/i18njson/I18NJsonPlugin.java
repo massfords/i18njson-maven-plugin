@@ -36,7 +36,10 @@ public class I18NJsonPlugin extends AbstractMojo {
         JsonValidationReport report = validateFiles(jsonFiles);
         File reportFile = new File(this.project.getModel().getBuild().getDirectory(), "i18njson-maven-plugin/report.json");
         report.createReportFile(reportFile);
-        // todo throw a Mojo exception if it failed.
+        if (report.getInvalid() > 0) {
+            throw new MojoFailureException("Some files failed i18njson validation. See report file" +
+                    "in target/i18njson-maven-plugin/report.json for details.");
+        }
     }
 
     protected JsonValidationReport validateFiles(List<File> i18nJsonFiles) {
