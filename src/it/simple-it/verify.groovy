@@ -6,4 +6,4 @@ assert reportFile.isFile()
 def contents = new JsonSlurper().parse(new FileReader(reportFile))
 assert contents instanceof Map
 
-assert contents.get("gftotal") == 1
+assert contents.get("total") == 1
