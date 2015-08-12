@@ -1,5 +1,6 @@
 package com.massfords.maven.i18njson;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,10 +16,14 @@ public class I18NJsonPluginTest {
 
     @Test
     public void testValidateFiles() throws Exception {
-        File validJsonFile = new File(getClass().getResource("testdata/valid.json").getFile());
         List<File> files = new ArrayList<File>();
-        files.add(validJsonFile);
-        plugin.validateFiles(files);
+        files.add(new File(getClass().getResource("testdata/valid.json").getFile()));
+        files.add(new File(getClass().getResource("testdata/invalid-duplicate-keys.json").getFile()));
+        files.add(new File(getClass().getResource("testdata/invalid-nested-data.json").getFile()));
+        JsonValidationReport report = plugin.validateFiles(files);
+        Assert.assertEquals(report.getValid(), 1);
+        Assert.assertEquals(report.getInvalid(), 2);
+        Assert.assertEquals(report.getTotal(), 3);
     }
 
 }
