@@ -1,0 +1,5 @@
+{
+  "a": "this",
+  "b": "should",
+  "a": "fail"
+}
