@@ -12,17 +12,17 @@ import java.util.List;
  */
 public class JsonValidationReport {
 
-    private int total = 0;
+    private int total;
 
-    private int invalid = 0;
+    private int invalid;
 
-    private int valid = 0;
+    private int valid;
 
-    private List<String> checkedFiles = new ArrayList<String>();
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    private List<String> checkedFiles = new ArrayList<>();
 
-    private String activeFile = null;
-
-    private List<String> errors = new ArrayList<String>();
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    private List<String> errors = new ArrayList<>();
 
     protected JsonValidationReport addFile(String file) {
         this.checkedFiles.add(file);
