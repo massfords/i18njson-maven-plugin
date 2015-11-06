@@ -29,17 +29,27 @@ public class I18NJsonPlugin extends AbstractMojo {
     private List<String> i18nJsonFiles = Collections.emptyList();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        List<File> jsonFiles = i18nJsonFiles
-                .stream()
-                .map(s -> new File(project.getBasedir(), s))
-                .collect(Collectors.toList());
-        JsonValidationReport report = validateFiles(jsonFiles);
-        File reportFile = new File(this.project.getModel().getBuild().getDirectory(), "i18njson-maven-plugin/report.json");
+        i18nJsonFiles.stream().forEach(s->
+                getLog().info("i18njson: checking: " + s)
+        );
+        JsonValidationReport report = validatePaths(i18nJsonFiles);
+        File reportFile = new File(this.project.getModel().getBuild().getDirectory(),
+                "i18njson-maven-plugin/report.json");
         report.createReportFile(reportFile);
         if (report.getInvalid() > 0) {
-            throw new MojoFailureException("Some files failed i18njson validation. See report file" +
+            report.getErrors().stream().forEach(s->getLog().error(s));
+            throw new MojoFailureException("i18njson: Failures. See report file " +
                     "in target/i18njson-maven-plugin/report.json for details.");
         }
+    }
+
+    protected JsonValidationReport validatePaths(List<String> paths) {
+        return validateFiles(
+                paths
+                .stream()
+                .map(s -> new File(project.getBasedir(), s))
+                .collect(Collectors.toList())
+        );
     }
 
     protected JsonValidationReport validateFiles(List<File> i18nJsonFiles) {
@@ -49,16 +59,15 @@ public class I18NJsonPlugin extends AbstractMojo {
             try {
                 JsonValidator.validate(f);
             } catch (FileNotFoundException e) {
-                report.failure("i18N Json Plugin was unable to find json file: \"" + f.getPath() + "\"");
+                report.failure("i18njson: unable to find json file: \"" + f.getPath() + "\"");
                 continue;
             } catch (I18NJsonValidationException e) {
-                report.failure("Validation failed for file \"" + f.getPath() + "\": " + e.getMessage());
+                report.failure("i18njson: failed for file: \"" + f.getPath() + "\": " + e.getMessage());
                 continue;
             } catch (IOException e) {
-                report.failure("i18N Json Plugin was unable to read json file: \"" + f.getPath() + "\"");
+                report.failure("i18njson: unable to read json file: \"" + f.getPath() + "\"");
                 continue;
             }
-
             report.success();
         }
         return report;
