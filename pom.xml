@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.massfords</groupId>
     <artifactId>i18njson-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>i18njson Maven Plugin</name>
@@ -27,7 +29,7 @@
         <url>https://github.com/massfords/i18njson-maven-plugin</url>
         <connection>scm:git:git://github.com/massfords/i18njson-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:massfords/i18njson-maven-plugin.git</developerConnection>
-        <tag>i18njson-maven-plugin-1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
